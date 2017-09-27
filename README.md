@@ -1,12 +1,28 @@
 # pathway_tools_docker
 Docker files and instructions for setting up a web install of Pathway tools
 
-Download and install pathway tools on a comparable machine you wish to run the service.  We installed pathway tools on CentOS using an interactive login node of the Genepool cluster at NERSC.
+The Docker image is based on **Ubuntu:16.04**, updated to have the required support libraries. Currently, the Dockerfile assumes that it is installing version 21.0 of the pathway tools, and expects you to provide the **pathway-tools-21.0-linux-64-tier1-install** installer in the current directory.
 
-In the Dockerfiles here, this installation is copied into the container.  You have to install and copy Pathway Tools due this way because it has a GUI in the installer.
+There's an installation script which feeds the answers to the tool installer, **install-pathway-tools.sh**. This is run by Docker when it builds the image. It also has the name of the installer hard-coded.
 
-# The User's manual is  here:
-pathway-tools/aic-export/pathway-tools/ptools/21.0/doc/manuals
+Build the container with the following command:
+
+```
+docker build -t pathway:21.0 .
+```
+
+The container will use a script for running the service automatically, **run-pathway-tools.sh**. It uses **Xvfb** to provide a headless X11 display to satisfy the bizarre need for X11 in a server process. You can run the container with this command:
+
+```
+docker run --volume `pwd`:/mnt --publish 1555:1555 --rm --name pathway -it pathway:21.0
+```
+
+Then, if you visit **http://localhost:1555** on your host machine, you should see the pathway tools website.
+
+Change the **pttools-init.dat** file if you need to modify the configuration, then rebuild the container.
+
+# The User's manual...
+...is installed into /opt/pathway-tools/pathway-tools/aic-export/pathway-tools/ptools/21.0/doc/manuals in the container. It's also included in this repository, for good measure.
 
 # Chapter 10 has web setup
 
