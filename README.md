@@ -13,7 +13,7 @@ pathway-tools/aic-export/pathway-tools/ptools/21.0/doc/manuals
 # Some instructions for headless x-server
 http://bioinformatics.ai.sri.com/ptools/web-logout.html
 
-Basically, install pathway tools on a machine and run the web server with
+Basically, install pathway tools in the container and run the web server with
 
 ```
 pathway_tools -www
