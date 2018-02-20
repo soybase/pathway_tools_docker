@@ -53,3 +53,23 @@ docker push registry.spin.nersc.gov/wildish/pathway:21.0
 ```
 
 You can create a stack in Spin using the *docker-compose.yml* file in this repository. Ask Cory Snavely and the Spin team for help with that.
+
+# To make a PGDB from a genbank file...
+
+### Step 1: Getting a genbank file from img
+
+Starting from img genome:
+https://img.jgi.doe.gov/cgi-bin/mer/main.cgi?section=TaxonDetail&page=taxonDetail&taxon_oid=2626542074
+
+Click on NCBI Taxon ID
+
+Click on the number by the "Genome" in the upper right corner: https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1619043
+
+Click on "Go to nucleotide: GenBank" from here: https://www.ncbi.nlm.nih.gov/genome/?term=txid1619043[Organism:noexp]
+
+https://www.ncbi.nlm.nih.gov/nuccore/818881831?report=genbank
+Click on upper right "Send to: File"
+
+### PathoLogic Batch Mode See section 7.6 of the user's manual
+
+### Use the python package 'annot2pathologic' to build inputs for pathway tools
