@@ -41,3 +41,14 @@ This will launch a webservice and an x-server.  The webservice will use port 155
 docker run -p 1555:80 -v <your_pgdbs_folder>:/pathway_tools/aic_export/pgdbs/ -t <container_tag>
 ```
 
+# To run on Spin:
+
+First, tag the image for the Spin registry, then push it. You may need to log into the registry first:
+
+```
+docker login registry.spin.nersc.gov
+docker tag pathway:21.0 registry.spin.nersc.gov/wildish/pathway:21.0
+docker push registry.spin.nersc.gov/wildish/pathway:21.0
+```
+
+You can create a stack in Spin using the *docker-compose.yml* file in this repository. Ask Cory Snavely and the Spin team for help with that.

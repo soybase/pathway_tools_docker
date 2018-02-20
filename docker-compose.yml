@@ -1,0 +1,11 @@
+version: '2'
+services:
+  pathway:
+    image: registry.spin.nersc.gov/wildish/pathway:21.0
+    stdin_open: true
+    tty: true
+    ports:
+    - 8080:1555/tcp
+    labels:
+      io.rancher.container.pull_image: always
+
