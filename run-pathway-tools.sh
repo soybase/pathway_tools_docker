@@ -1,4 +1,5 @@
 #!/bin/bash
 
 Xvfb $DISPLAY &
-/opt/pathway-tools/pathway-tools -www
+set -o xtrace
+/opt/pathway-tools/pathway-tools -www "$@"
