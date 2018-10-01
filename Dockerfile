@@ -7,7 +7,7 @@ ARG ptools_install
 ARG without_biocyc
 
 RUN apt-get update && \
-    apt-get install -y xterm openssl inetutils-ping libjpeg8-dev libxml2 xvfb && \
+    apt-get install -y xterm openssl inetutils-ping libjpeg8-dev libxm4 libxml2 xvfb && \
     apt-get install -y vim less wget \
     && rm -rf /var/lib/apt/lists
 
@@ -22,5 +22,5 @@ ENTRYPOINT ["/opt/bin/run-pathway-tools.sh"]
 CMD []
 EXPOSE 1555
 #
-# docker build --build-arg without_biocyc=1 --build-arg ptools_install=pathway-tools-22.0-linux-64-tier1-install -t pathway:22.0 .
-# docker run --volume `pwd`:/mnt --publish 1555:1555 --rm --name pathway -it pathway:22.0
+# docker build --build-arg without_biocyc=1 --build-arg ptools_install=pathway-tools-22.5-linux-64-tier1-install -t pathway:22.5 .
+# docker run --volume `pwd`:/mnt --publish 1555:1555 --rm --name pathway -it pathway:22.5
