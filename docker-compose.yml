@@ -1,11 +1,12 @@
-version: '2'
+version: '3'
+
 services:
   pathway:
-    image: registry.spin.nersc.gov/wildish/pathway:21.0
-    stdin_open: true
-    tty: true
+    build:
+      context: .
+#     args:
+#     - without_biocyc=1
     ports:
-    - 8080:1555/tcp
-    labels:
-      io.rancher.container.pull_image: always
-
+    - "1555:1555"
+#   volumes:
+#   - "./ptools-local:/opt/ptools-local"
