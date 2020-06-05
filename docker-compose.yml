@@ -1,12 +1,15 @@
-version: '3'
+version: '3.7'
 
 services:
   pathway:
     build:
-      context: .
 #     args:
-#     - without_biocyc=1
+#       - without_biocyc=0
+      context: .
+#   command: ["-www-publish", "ORGANISM_ID"]
+    # xvfb-run requires init in the container
+    init: true
     ports:
     - "1555:1555"
 #   volumes:
-#   - "./ptools-local:/opt/ptools-local"
+#     - "./ptools-local:/opt/ptools-local"
