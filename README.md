@@ -33,3 +33,10 @@ docker-compose down
 ```
 
 Additional pathway-tools command-line arguments (see "2.3 Running Pathway Tools from the Command Line" in the User Guide) can be specified by adding them to the **command** configuration option in docker-compose.yml.
+
+### Production
+
+```
+DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.prod.yml build --parallel
+docker-compose -f docker-compose.prod.yml up -d
+```

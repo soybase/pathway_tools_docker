@@ -1,10 +1,8 @@
-version: '3.7'
+version: '2.2'
 
 services:
   pathway-tools:
     build:
-#     args:
-#       - without_biocyc=0
       context: pathway-tools
     image: pathway-tools:24.0
 # Example options (NOTE: in Pathway Tools 24.0, the -dbdef option must be specified before -linkdef)
@@ -13,5 +11,12 @@ services:
     init: true
     ports:
     - "1555:1555"
-    volumes:
-      - "./ptools-local:/ptools-local:ro"
+    restart: always
+    volumes_from:
+      - ptools-local:ro
+
+  ptools-local:
+    build: 
+      context: ptools-local
+    command: tail -f /dev/null
+    restart: always
