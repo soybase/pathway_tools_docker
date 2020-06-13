@@ -1,15 +1,16 @@
 version: '3.7'
 
 services:
-  pathway:
+  pathway-tools:
     build:
 #     args:
 #       - without_biocyc=0
-      context: .
-#   command: ["-www-publish", "ORGANISM_ID"]
-    # xvfb-run requires init in the container
+      context: pathway-tools
+# Example options (NOTE: in Pathway Tools 24.0, the -dbdef option must be specified before -linkdef)
+#   command: ["-www-publish", "ORGANISM_ID", "-dbdef", "/ptools-local/dbdef", "-linkdef", "/ptools-local/linkdef"] 
+# xvfb-run requires init in the container
     init: true
     ports:
     - "1555:1555"
-#   volumes:
-#     - "./ptools-local:/opt/ptools-local"
+    volumes:
+      - "./ptools-local:/ptools-local"
