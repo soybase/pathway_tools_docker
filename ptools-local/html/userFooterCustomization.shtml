@@ -1,0 +1,11 @@
+<!-- Beginning of customizable user footer. 
+     You can use any HTML tags in this page and include a customize
+     footer for your Web site. 
+     Note: format the HTML strictly (for example, close all <p> tags)
+           since a non conforming HTML may affect the entire page.
+     This file must be self contained. 
+-->
+<div align="center">
+<a href="https://www.usda.gov/wps/portal/usdahome"><img border="0" src="https://www.soybase.org/images/usdalogo.gif" alt="USDA Logo">&nbsp</a><a href="https://www.ars.usda.gov/main/main.htm"><img border="0" src="https://www.soybase.org/images/50th-Banner.jpg" alt="ARS Logo" width=150 height=50 ></a>&nbsp<a href="http://www.iastate.edu"><img border="0" src="https://www.soybase.org/images/isu.gif" alt="Iowa State University Logo"></a>
+</div>
+<!-- Ending of general user footer -->

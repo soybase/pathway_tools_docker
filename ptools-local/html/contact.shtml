@@ -1,0 +1,47 @@
+<!--#include virtual="/template-part1of3.shtml" -->
+
+
+<title> Contact Us </title>
+
+<!--#include virtual="/template-part2of3.shtml" -->
+
+<!-- Contact Us -->
+<h1>Contact Us</h1>
+
+
+<!-- Insert text specific to BioCyc site regarding licensing -->
+<!-- 2013-10-24: Removed the include /license-contact.shtml line; per
+                 ptools-support, this caused the "ReferenceError: Can't find
+                 variable: allOrganisms" error we encountered -->
+<h2>User Support</h2>
+
+<p><b>To report problems with this website or one of its databases, or to request assistance,</b> send email to 
+<!-- #lisp expr="(ec::generate-obfuscated-email-address nil nil ec::*support-email-address*)" -->
+
+<p><b>To report problems in a particular data page on this site,</b> click the button
+"Report Errors or Provide Feedback" at the bottom of the page.  The resulting error
+report will tell us on exactly what page you encountered an error.
+
+<!-- <p>We can help with:
+<ul>
+<li>Problems connecting to the website
+<li>Requests for a new feature in the website
+<li>Requests for assistance in performing some task
+<li>Reporting omissions, redundancies, ambiguities, or errors in a database
+<li>Reporting errors in software, documentation, or the website
+</ul> -->
+<input type="hidden" name="check" value="1" >
+
+<fieldset>
+<legend>
+Assistance Requests
+</legend>
+<form action="https://www.soybase.org/include/antispam.php?menu=0" method="POST" id="support" name="Support" title="Mail support requests">
+<button type="submit" id="submit" name="submit" value="" ><font size="5">Send assistance request</font></button>
+</form>
+
+<!-- Insert text specific to BioCyc site regarding PTools support -->
+<!-- 2013-10-24: Removed the include /ptools-support.shtml line; per
+                 ptools-support, this caused the "ReferenceError: Can't find
+                 variable: allOrganisms" error we encountered -->
+<!--#include virtual="/template-part3of3.shtml" -->

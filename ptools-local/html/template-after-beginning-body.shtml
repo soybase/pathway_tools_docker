@@ -1,0 +1,108 @@
+<!--next line is used for determining text size for sizing window, tooltips, buttons, etc billingt:Jul-7-2014 -->
+
+<!-- display: none is necessary or space will be left on the screen for this invisible area -->
+<span id='textSizeTestArea' style='visibility: hidden; display: none'></span>
+
+<!--Fixed Navigation Box-->
+
+<div class="navBox" id="navBox" style="display:none">
+  <div id='navBoxExpanded' class='navBoxExpansion'>
+    <a href="#" onclick='hideNavBox()'><img src='/navbox-hide.png' width='9' height='9'> hide</a>
+  </div>
+  <div id='navBoxCollapsed' class='navBoxExpansion' style="display:none">
+    <a href="#" onclick='showNavBox()'><img src='/navbox-show.png' width='9' height='9'> show operations</a>
+  </div>
+  <div id='navBoxBody'>
+  <br>   
+    <div id='navBoxTitle'>     
+      <div class="navBoxItem"><i><a href="organism-summary" class="dynDBName" ></a></i></div>
+      <div class="navBoxLabel" id='objtypeNavBox'></div>
+      <div class='navBoxItem' id='objnameNavBox'></div>
+    </div>
+    <span class='section1'>OPERATIONS</span>
+    <div id="navBoxOps">
+    </div>
+  </div>
+</div>
+
+<!--End Fixed Navigation Box-->
+
+<!-- The top banner, we are in a body -->
+<!-- the table width controls the width of the dark green subnav bar -->
+<table style="width:1044px;"> <!-- This width determines the maximum width of the Header field ; original was 1050px -->
+	<tr>
+		<td valign="top" width="100px"><img src ="https://www.soybase.org/images/new.jpg" ALT="Bean Picture" height="85" border="0" /></td>
+		<td valign="top">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="700px"> <!-- This determines the width of the text field of each page -->
+						<font class="largegreen"><i>SoyBase&nbsp;and&nbsp;the&nbsp;Soybean&nbsp;Breeder's&nbsp;Toolbox</i></font>
+						<font class="smallgreen"><br /><b>Integrating&nbsp;Genetics&nbsp;and&nbsp;Molecular&nbsp;Biology&nbsp;for&nbsp;Soybean&nbsp;Researchers </b></font><br />
+					</td>
+				</tr>
+				<tr>
+					<td background="https://www.soybase.org/images/light_tan.gif" height="4pt"></td>
+				</tr>
+			</table>
+	</tr>
+</table>
+<div align="center"><a href="https://www.soybase.org" id="soybasehome" title="Return to SoyBase home page" target="_blank">Return to SoyBase</a></div>
+
+<!-- We need this div to have position:relative in order for the z-index of the menu stacking to work -->
+<div id="topBannerMenu">
+  <table width="100%" border=0 cellpadding=0 style="border-collapse:collapse">
+  <tr>
+  <td>
+    <div id="ptbanner">
+      <a id="logoLink" class="logo" href="/"></a>
+  
+      <!--#include virtual="/temporary-message.shtml" -->
+  
+      <!-- #if expr="cwest::*use-login-preferences-system*" -->
+        <!-- Login line and overlays for login help, etc. is in the following file -->
+        <!--#include virtual="/ilogin.shtml" -->
+      <!-- #endif -->
+      <div class=searchGroupingExternalBox >
+        <div class=searchGroupingInternalBox>
+          <!-- Quick Search -->
+  
+           <form class=searchMenu action='/'
+                 name=substring onSubmit="if (this.elements[1].value != '') {this.action= '/'+orgID()+'/substring-search?type=NIL&amp;object='+this.elements[1].value} else return(false);">
+           <input id="QSType" name=type type=hidden value="NIL">
+           <input id="QSTextBox" class="inputQuickSearch"
+		  name="object" size="47" spellcheck="false"
+		  placeholder="Enter a gene, protein, metabolite or pathway..."
+	          title="<!-- #lisp expr="(strip-html-tags (shorter-search-instruction-msg))" -->"
+                  >
+  	   <input type=submit name="quickSearch" class="searchButton" value="Quick Search">
+  	   <input type=submit name="geneSearch" class="searchButton" value="Gene Search" onclick="document.substring.type.value='GENE';" >
+           </form>
+           
+          <!-- End Quick Search -->
+  
+          <!-- Database name and change link -->
+           <div class=searchMenuDatabaseName>Searching&nbsp;<i><span id=currentDatabaseName class="dynDBName banner"></span>&nbsp;&nbsp;</i>
+           <a id=changeField href='javascript:void(0);'
+           onclick="showChooser(false)" title="All searches will be conducted against the currently selected organism database.  To search a different organism, click this link and select a new database before submitting your query.">change&nbsp;organism&nbsp;database</a>
+           </div>
+        </div>
+      </div>
+     <!-- End Database name and change link -->
+    </div>
+  </td>
+  </tr>
+  <!-- The top menu bar -->
+  
+  <tr>
+    <td>
+    <!--#include virtual="/template-top-menubar.shtml" -->	
+    </td>
+  </tr>
+  
+  </table>
+</div>
+<!-- end topBannerMenu -->
+<!--#include virtual="/template-require-login-overlay.shtml" -->	
+
+<!-- Placeholder for popup messages -->
+<div id="msgPopup"></div>

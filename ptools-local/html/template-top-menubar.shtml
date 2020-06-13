@@ -1,0 +1,180 @@
+
+<!-- The standard top menubar for Pathway Tools -->
+
+<div id="pathwayToolsMenubar" class="yuimenubarnav" > <!-- style="display:none;" -->
+ <div class="bd">
+  <ul class="toolbar">
+
+  <li class="yuimenubaritem"><a class="yuimenubaritemlabel" onclick="1" href="https://www.soybase.org/">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SoyBase</a>
+  </li>
+
+  <li class="yuimenubaritem"><a class="yuimenubaritemlabel" onclick="1">Search</a>
+     <div id="search" class="yuimenu">
+
+      <div class="bd">
+        <ul class="first-of-type">
+        <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/gene-search.shtml">Search Genes, Proteins or RNAs</a></li>
+        <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/cpd-search.shtml">Search Compounds</a></li>
+        <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/rxn-search.shtml">Search Reactions</a></li>
+        <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/pwy-search.shtml">Search Pathways</a></li>
+ <!-- #if expr="(enable-site-search-p)" -->
+        <li class="yuimenuitem" id="siteSearchItem"><a class="yuimenuitemlabel" href="/site-search.shtml">Search DNA or mRNA Sites</a></li>
+ <!-- #endif -->
+        <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/gm-search.shtml">Search Growth Media</a></li>
+	</ul>
+	<ul>
+        <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/query.shtml">Advanced Search</a></li>
+	</ul>
+<!--
+	<ul>
+        <li class="yuimenuitem" id="blastMenuItem"><a class="yuimenuitemlabel orgspecific" href="/[ORGID]/blast.html">BLAST Search</a></li>
+	</ul>
+-->
+ <!-- #if expr="(show-patmatch-search-menu-item-p)" -->
+<!-- 2017-10-13: we don't have sequence in Pathway Tools, so don't show this...
+	<ul>
+        <li class="yuimenuitem" id="patMatchMenuItem"><a class="yuimenuitemlabel orgspecific" href="/patmatch.shtml?organism=[ORGID]">Sequence Pattern Search</a></li>
+	</ul>
+-->
+ <!-- #endif -->
+<!--
+#2013-10-24 (weeks): Google search requires pathway tools be served from port
+                     80 (currently, it's being served from 8082).
+	<ul>
+	<li class="yuimenuitem"><a class="yuimenuitemlabel" href="/full-text-search.shtml">Google Search of this Site</a></li>
+        </ul>            
+-->
+      </div>
+      </div>
+  </li>
+
+  <li class="yuimenubaritem"><a class="yuimenubaritemlabel" onclick="1">Genome</a>
+     <div id="genome" class="yuimenu">
+        <div class="bd">
+        <ul class="first-of-type">
+<!--     <li class="yuimenuitem" id="genomeBrowserMenuItem"><a href="/[ORGID]/select-gen-el" class="yuimenuitemlabel orgspecific">Genome&nbsp;Browser</a></li> -->
+
+<!-- 2016-10-28: SoyCyc doesn't have a genome loaded
+         <li class="yuimenuitem"
+         id="genOVMenuItem"><a class="yuimenuitemlabel orgspecific" href="/[ORGID]/NEW-IMAGE?type=GENOME-OVERVIEW">Genome&nbsp;Overview</a></li>
+-->
+<!-- 2018-07-24: No regulatory overview loaded
+         <li class="yuimenuitem" id="regOVMenuItem"><a class="yuimenuitemlabel" href="/overviewsWeb/regOv.shtml" >Regulatory&nbsp;Overview</a></li>
+-->
+
+        <li class="yuimenuitem"><a class="yuimenuitemlabel orgspecific"
+        href='/[ORGID]/class-tree?object=Gene-Ontology-Terms'>Browse&nbsp;Gene&nbsp;Ontology</a></li>
+<!-- 2018-07-24: "No Replicons are available for Mapping Sequence Coordinates"
+         <li class="yuimenuitem" id="mapSeqCoordMenuItem"><a href="/[ORGID]/select-gen-el?type=MAP-SEQ-COORDS" class="yuimenuitemlabel orgspecific">Map&nbsp;Sequence&nbsp;Coordinates</a></li>
+-->
+
+<!-- #if expr="(ec::enable-genome-poster-p)" -->
+         <li class="yuimenuitem" id="genomePosterMenuItem"><a href="/[ORGID]/select-gen-el?type=POSTER" class="yuimenuitemlabel orgspecific">Generate&nbsp;Genome&nbsp;Poster</a></li>
+ <!-- #endif -->
+
+       </ul>
+       </div>
+     </div>
+  </li>
+
+
+  <li class="yuimenubaritem"><a class="yuimenubaritemlabel" onclick="1">Metabolism</a>
+     <div id="metabolism" class="yuimenu">
+        <div class="bd">
+        <ul class="first-of-type">
+         <li class="yuimenuitem" id="cellOVMenuItem"><a class="yuimenuitemlabel" href="/overviewsWeb/celOv.shtml">Cellular&nbsp;Overview</a></li>
+         <!-- 2018-07-24: disable, as this requires login
+         <li class="yuimenuitem" id="fbaMenu"><a class="yuimenuitemlabel" href="/fba.shtml">Run Metabolic Model</a></li>
+         -->
+         <li class="yuimenuitem" id="deadEndsMenuItem"><a class="yuimenuitemlabel" href="/dead-end-form.shtml">Dead-end&nbsp;Metabolites</a></li>
+         <li class="yuimenuitem" id="chokepointsMenuItem"><a class="yuimenuitemlabel" href="/chokepoint-form.shtml">Chokepoint&nbsp;Reactions</a></li>
+
+ <!-- #if expr="(show-metabolic-route-search-menu-item-p)" -->
+         <li class="yuimenuitem" id="metEngMenuItem">
+     	   <a  class="yuimenuitemlabel orgspecific" href="/meteng?organism=[ORGID]">Metabolic Route Search</a>
+	 </li>
+ <!-- #endif -->
+         <li class="yuimenuitem" id="MetaboliteMenuItem"><a class="yuimenuitemlabel" href="/metabolite-translation-service.shtml">Metabolite&nbsp;Translation&nbsp;Service</a></li>
+         <li class="yuimenuitem" id="pwyCollageMenuItem"><a class="yuimenuitemlabel" href="/pathway-collage-info">Pathway&nbsp;Collages</a></li>
+        <li class="yuimenuitem"><a class="yuimenuitemlabel orgspecific" href='/[ORGID]/class-tree?object=Pathways'>Browse&nbsp;Pathway&nbsp;Ontology</a></li>
+        <li class="yuimenuitem"><a class="yuimenuitemlabel orgspecific" href="/[ORGID]/class-tree?object=EC-Reactions">Browse&nbsp;Enzyme&nbsp;Commission&nbsp;Ontology</a></li>
+        <li class="yuimenuitem"><a class="yuimenuitemlabel orgspecific" href="/[ORGID]/class-tree?object=Compounds">Browse&nbsp;Compound&nbsp;Ontology</a></li>
+<!-- 2016-10-28 doesn't appear to work...
+         <li class="yuimenuitem" id="cellOVPosterMenuItem"><a class="yuimenuitemlabel orgspecific" href="/poster-cellov?orgid=[ORGID]">Generate&nbsp;Metabolic&nbsp;Map&nbsp;Poster</a></li>
+-->
+        </ul>
+     </div>
+     </div>
+  </li>
+
+
+  <li class="yuimenubaritem"><a class="yuimenubaritemlabel" onclick="1">Analysis</a>
+     <div id="analysis" class="yuimenu">
+        <div class="bd">
+        <ul class="first-of-type">
+         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/comp-genomics">Comparative&nbsp;Analysis</a></li>
+ 
+	 <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/PToolsWebsiteHowto.shtml#omicsDataAnalysis">Omics&nbsp;Data&nbsp;Analysis</a></li>
+	 <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/dashboard/dashboard-intro.shtml">Omics&nbsp;Dashboard</a></li>
+         <li class="yuimenuitem"><a class="yuimenuitemlabel orgspecific" href="/[ORGID]/organism-summary">Summary&nbsp;Statistics</a></li>
+
+         <li class="yuimenuitem"><a onclick="1">Reports</a>
+          <div id="reports" class="yuimenu">
+           <div class="bd">
+             <ul class="first-of-type">
+                <li class="yuimenuitem"><a class="yuimenuitemlabel orgspecific" href="/[ORGID]/release-notes">History&nbsp;of&nbsp;updates</a></li>
+                <li class="yuimenuitem" id="pwyEvMenuItem"><a class="yuimenuitemlabel orgspecific" href="/[ORGID]/hierarchical.html">Pathway&nbsp;evidence</a></li>
+                <li class="yuimenuitem" id="pwyHolesMenuItem"><a class="yuimenuitemlabel orgspecific" href="/[ORGID]/missing-rxns.html">Pathway&nbsp;holes</a></li>
+             </ul>
+           </div>
+          </div>
+         </li>
+        </ul>
+     </div>
+     </div>
+  </li>
+
+<!-- #if expr="*webgroups-enabled?*"-->
+  <li class="yuimenubaritem"> <a  class="yuimenuibartemlabel" onclick="1">SmartTables</a>
+    <div id="groups" class="yuimenu">
+        <div class="bd">
+        <ul class="first-of-type">
+	 <!-- #endif -->
+	  <!-- #if expr="(and *webgroups-enabled?* (logged-in?))" -->
+         <li class="yuimenuitem" id="groupsMenuItem">
+     	   <a class="yuimenuitemlabel orgspecific" href="/groups?orgid=[ORGID]">My&nbsp;SmartTables</a>
+	 </li>
+	 <!-- #endif -->
+	 <!-- #if expr="*webgroups-enabled?*"-->
+          <li class="yuimenuitem" id="groupsMenuItem">
+     	   <a class="yuimenuitemlabel orgspecific" href="/groups?tab=PUBLIC&orgid=[ORGID]">Public&nbsp;SmartTables</a>
+	 </li>
+         <li class="yuimenuitem" id="groupsMenuItem">
+     	   <a class="yuimenuitemlabel orgspecific" href="/groups?tab=SPECIAL&orgid=[ORGID]">Special&nbsp;SmartTables</a>
+	 </li>
+        </ul>
+        </div>
+    </div>
+  </li>
+<!-- #endif -->
+
+  <li class="yuimenubaritem"><a class="yuimenubaritemlabel" onclick="1">Help</a>
+     <div id="help" class="yuimenu" style="display:none;">
+        <div class="bd">
+        <ul class="first-of-type">
+         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/PToolsWebsiteHowto.shtml#SearchHelp">Searching</a></li>
+         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/PToolsWebsiteHowto.shtml">Website&nbsp;User&nbsp;Guide</a></li>
+         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/glossary.shtml">Glossary</a></li>
+         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/PGDBConceptsGuide.shtml">PGDB&nbsp;Concepts&nbsp;Guide</a></li>
+	</ul>
+	<ul>
+         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="/contact.shtml">Contact&nbsp;Us/Support</a></li>
+        </ul>
+     </div>
+     </div>
+  </li>
+
+
+  </ul>
+ </div>
+</div>

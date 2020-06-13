@@ -2,21 +2,25 @@ version: '2.2'
 
 services:
   pathway-tools:
+    container_name: soycyc.soybase.org_pathway-tools
     build:
       context: pathway-tools
     image: pathway-tools:24.0
 # Example options (NOTE: in Pathway Tools 24.0, the -dbdef option must be specified before -linkdef)
-#   command: ["-www-publish", "ORGANISM_ID", "-dbdef", "/ptools-local/dbdef", "-linkdef", "/ptools-local/linkdef"] 
+    command: ["-www-publish", "SOY", "-dbdef", "/ptools-local/dbdef", "-linkdef", "/ptools-local/linkdef"] 
 # xvfb-run requires init in the container
     init: true
     ports:
-    - "1555:1555"
+# c2s6
+    - "192.168.1.226:1555:1555"
     restart: always
     volumes_from:
-      - ptools-local:ro
+      - ptools-local
 
   ptools-local:
+    container_name: soycyc.soybase.org_ptools-local
     build: 
       context: ptools-local
     command: tail -f /dev/null
+    network_mode: "none"
     restart: always

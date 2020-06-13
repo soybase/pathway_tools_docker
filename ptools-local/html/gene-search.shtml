@@ -1,0 +1,342 @@
+<!--#include virtual="/template-before-head.shtml" -->
+
+<HEAD>
+<title>Gene/Protein/RNA Search Form</title>
+
+<meta name="description" content="Search the selected model organism database for genes or proteins by a variety of criteria, including name, sequence size or location, evidence code, GO term, publication, etc.">
+
+<!--#include virtual="/template-standard-head-content.shtml" -->
+
+</head>
+
+<!--#include virtual="/template-beginning-body.shtml" -->
+
+<h1 class=wspecies>Gene/Protein/RNA Search</h1>
+<form class="searchForm" id="geneSearch" action="javascript:submitGeneQuery();">
+<div style="text-align:center">
+<input type="submit" value="Submit Query" />
+<input type="reset" value="Clear Form" onclick="clearGeneForm()" />
+<input type="button" value="List of All Genes" onclick="popupShortWaitMsg();location.href='/'+orgID()+'/class-instances?object=Genes'">
+<input type="button" value="List of All Polypeptides" onclick="popupShortWaitMsg();location.href='/'+orgID()+'/class-instances?object=Polypeptides'">
+<input type="button" value="List of All Protein Complexes" onclick="location.href='/'+orgID()+'/class-instances?object=Protein-Complexes'">
+<input type="button" value="List of All RNAs" onclick="location.href='/'+orgID()+'/class-instances?object=RNAs'">
+</div>
+
+<div class="secbar open" onclick="toggleShow(this, YAHOO.module.geneNameSearch)">
+Search by gene name or database identifier
+</div>
+<div id="geneNameSearchModule">
+  <div class="bd">
+    <div class= "shortAC" id="geneNameAutoComplete">
+      <input id="geneName" type="text" spellcheck="false" />
+      <div id="geneNameContainer"></div>
+    </div>
+    <input id="geneID" type="hidden" />
+  </div>
+  <div class="ft">
+  Enter a gene name, or a database identifier from this database or from an external database to which this database contain links.  Partial names will generate a substring search on gene names only (not on database identifiers).<br>
+  Examples: "trpA", "trp", "b1236"
+  </div>
+</div>
+
+<div class="secbar open" onclick="toggleShow(this, YAHOO.module.prodNameSearch)">Search by protein or RNA name, EC number, or database identifier
+</div>
+<div id="prodNameSearchModule">
+  <div class="bd">
+    <div class= "longAC" id="prodNameAutoComplete">
+      <input id="prodName" type="text" spellcheck="false" />
+      <div id="prodNameContainer"></div>
+    </div>
+    <input id="prodID" type="hidden" />
+  </div>
+  <div class="ft">
+  Enter a protein or RNA name, an EC number, or a database identifier from this database or from an external database to which this database contain links.  Partial names will generate a substring search on protein or RNA names only (not on database identifiers).<br>  Examples: "tryptophan synthase", "P0A877", "1.1.2.3"
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.seqLength)">
+Search/Filter by sequence length
+</div>
+<div id="seqLengthModule">
+  <div class="bd">
+    <input id="minLen" type="text" style="width:4em" spellcheck="false">
+    &lt;= Sequence Length &lt;= 
+    <input id="maxLen" type="text" style="width:4em" spellcheck="false">
+    <input type="radio" id="seqTypeN" name="seqType" value="n" checked>nucleotides
+    <input type="radio" id="seqTypeA" name="seqType" value="aa">amino acids
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.mapPos)">
+Search/Filter by replicon and/or gene map position
+</div>
+<div id="mapPosModule">
+  <div class="bd" id="mapPosBody">
+    <input id="minMP" type="text" style="width:8em" spellcheck="false">
+    &lt;= Map Position &lt;= 
+    <input id="maxMP" type="text" style="width:8em" spellcheck="false">
+  </div>
+  <div class="ft">
+  Map position is specified in base pairs from the start of the replicon.
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.mw)">
+Search/Filter by product molecular weight
+</div>
+<div id="mwModule">
+  <div class="bd">
+    <input id="minMW" type="text" style="width:4em" spellcheck="false">
+    &lt;= Molecular weight (kilodaltons) &lt;= 
+    <input id="maxMW" type="text" style="width:4em" spellcheck="false">
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.multimer)">
+Search/Filter by type/subunits
+</div>
+<div id="multModule">
+  <div class="bd">
+    <input type="radio" id="multPseudo" name="mult" value="pseudo">Pseudogenes only<br/>
+    <input type="radio" id="multRNA" name="mult" value="rna">RNAs only<br/>
+    <input type="radio" id="multP" name="mult" value="p">Proteins only<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="multPP" name="mult" value="pp">Monomers only<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="multM" name="mult" value="mult">Multimers only<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="multHomo" name="mult" value="homo">Homomultimers only<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="multHetero" name="mult" value="hetero">Heteromultimers only<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="mult1" name="mult" value="1">Monomers or Homomultimers only<br/>
+  </div>
+  <div class="ft">
+  In this context, monomers refer to polypeptides that are not known to form multimeric complexes.  Multimers can be either homomultimers or heteromultimers.  Proteins also include modified proteins and complexes that contain proteins.
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.pi)">
+Search/Filter by pI
+</div>
+<div id="piModule">
+  <div class="bd">
+    <input id="minPI" type="text" style="width:4em" spellcheck="false">
+    &lt;= pI &lt;= 
+    <input id="maxPI" type="text" style="width:4em" spellcheck="false">
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.cpd)">
+Search/Filter by small molecule regulator, cofactor, substrate or ligand
+</div>
+<div id="cpdModule">
+  <div class="bd">
+    Search for all proteins for which the specified small molecule plays one or more of the following roles:<br><br>
+    <input type="checkbox" id="activator"> Enzyme activator<br>
+    <input type="checkbox" id="inhibitor"> Enzyme inhibitor<br>
+    <input type="checkbox" id="cofactor"> Enzyme cofactor<br>
+    <input type="checkbox" id="substrate"> Enzyme or transporter substrate<br>
+    <input type="checkbox" id="ligand"> Transcription factor ligand<br>
+    <br>
+    <div class = "shortAC" id="cpdAutoComplete">
+      Small molecule: <input id="cpdName" type="text" spellcheck="false" />
+      <div id="cpdContainer"></div>
+    </div>
+    <input id="cpdID" type="hidden" />
+  </div>
+  <div class="ft">
+  Enter a compound name and check one or more boxes.  Use the autocomplete functionality to 
+  select a full compound name, as no substring matching is done on the compound
+  name. <br>
+  Examples: "L-tryptophan", "pyruvate", "Mn+2"
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.evidence)">
+Search/Filter by evidence code
+</div>
+<div id="evidenceModule">
+  <div class="bd">
+    <div id="evidenceTree"></div>
+  </div>
+  <div class="ft">
+  Select one or more evidence codes to filter the result to only include gene products that have the corresponding evidence for their function.  Deselecting all evidence codes has the same effect as selecting all evidence codes -- no filtering will be done based on evidence code.
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.cco)">
+Search/Filter by cell component
+</div>
+<div id="ccoModule">
+  <div class="bd">
+    <div id="ccoTree"></div>
+  </div>
+  <div class="ft">
+  Select one or more cell components to filter the result to only include gene products that have been assigned to those components.  Note that not all proteins have been assigned to cell components.  Deselecting all cell components has the same effect as selecting all cell components -- no filtering will be done based on cellular location.
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.GO)">
+Search/Filter by Gene Ontology term
+</div>
+<div id="GOModule">
+  <div class="bd">
+    Type in or browse for a Gene Ontology term
+    <div class = "longAC" id="GOAutoComplete">
+      <input id="GOName" type="text" spellcheck="false" />
+      <div id="GOContainer"></div>
+    </div>
+    <input id="GOID" type="hidden" />
+    <div id="goTree"></div>
+    <p>
+    Filter to only include GO annotations with one of the checked evidence codes (optional):
+   <table id="goEvCodes">
+   <tr><td>
+   <input type="checkbox" name="goEv" value="EXP"/>Inferred from
+   Experiment<br><span style='margin-left:20px'> (EXP, includes IDA, IPI, IMP, IGI, IEP)</span>
+   <br>
+   <input type="checkbox" name="goEv" value="IDA"/>Inferred from Direct Assay (IDA)
+   <br>
+   <input type="checkbox" name="goEv" value="IPI"/>Inferred from Physical Interaction (IPI)
+   <br>
+   <input type="checkbox" name="goEv" value="IMP"/>Inferred from Mutant Phenotype (IMP)
+   <br>
+   <input type="checkbox" name="goEv" value="IGI"/>Inferred from Genetic Interaction (IGI)
+   <br>
+   <input type="checkbox" name="goEv" value="IEP"/>Inferred from Expression Pattern (IEP)
+   </td><td>	
+   <input type="checkbox" name="goEv" value="ISS"/>Inferred from
+   Sequence or structural Similarity<br><span style='margin-left:20px'> (ISS, includes ISA, ISO, ISM)</span>
+   <br>
+   <input type="checkbox" name="goEv" value="ISO"/>Inferred from Sequence Orthology (ISO)
+   <br>
+   <input type="checkbox" name="goEv" value="ISA"/>Inferred from Sequence Alignment (ISA)
+   <br>
+   <input type="checkbox" name="goEv" value="ISM"/>Inferred from Sequence Model (ISM)
+   <br>
+   <input type="checkbox" name="goEv" value="IGC"/>Inferred from Genomic Context (IGC)
+   <br>
+   <input type="checkbox" name="goEv" value="IBA"/>Inferred from Biological aspect of Ancestor (IBA)
+   </td><td>	
+   <input type="checkbox" name="goEv" value="RCA"/>Inferred from Reviewed Computational Analysis (RCA)
+   <br>
+   <input type="checkbox" name="goEv" value="IEA"/>Inferred from Electronic Annotation (IEA)
+   <br>
+   <input type="checkbox" name="goEv" value="TAS"/>Traceable Author Statement (TAS)
+   <br>
+   <input type="checkbox" name="goEv" value="NAS"/>Non-traceable Author Statement (NAS)
+   <br>
+   <input type="checkbox" name="goEv" value="IC"/>Inferred by Curator (IC)
+   </td></tr>	
+    </table>
+  </div>
+  <div class="ft">
+  Type in a GO term name or ID, browse GO to a particular gene product, or select one or more GO terms to filter your query to only retrieve gene products annotated with that term or terms.  Only terms that have gene products annotated to them in this organism are available.  If the Gene-Ontology-Terms class above has no children, then this organism lacks any GO annotations.  To only include GO terms annotated with a particular evidence code, select one or more evidence codes.  If no evidence codes are selected, then no filtering will be done based on evidence.
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.MultiFun)">
+Search/Filter by MultiFun term
+</div>
+<div id="MultiFunModule">
+  <div class="bd">
+    <div id="multifunTree"></div>
+  </div>
+  <div class="ft">
+  Browse MultiFun to a particular gene, or select one or more MultiFun terms to filter your query to only retrieve genes annotated with that term or terms.  Only terms that have genes annotated to them in this organism are available.  If the MultiFun class above has no children, then this organism lacks any MultiFun annotations.
+  </div>
+</div>
+
+<div class="multiorg">
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.species)">
+Search/Filter by organism
+</div>
+<div id="speciesModule">
+  <div class="bd">
+    Type in or browse for an organism
+    <div class="longAC" id="speciesAutoComplete">
+       <input id="speciesName" type="text" spellcheck="false" />
+       <div id="speciesContainer"></div>
+    </div>
+    <input id="NCBIorgID" type="hidden" />
+    <div id="speciesTree"></div>
+  </div>
+  <div class="ft">
+  Type in an organism name or NCBI Taxonomy ID, or browse the NCBI Taxonomy to select one or more organisms or organism classes.  The results will be filtered to only include genes and products belonging those organisms.  Organisms that are not present in the list have no gene products curated for them.  Deselecting all organisms has the same effect as selecting all organisms -- no filtering will be done based on organism.  
+  </div>
+</div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.pub)">
+Search/Filter by publication
+</div>
+<div id="pubModule">
+  <div class="bd">
+  <table>
+    <tr><td>PubMed ID:</td><td><input id="pmid" type="text" style="width:9em" spellcheck="false"></td></tr>
+    <tr><td>Author:</td><td><input id="auth" type="text" style="width:9em" spellcheck="false"></td></tr>
+    <tr><td>Title:</td><td><input id="title" type="text" style="width:30em" spellcheck="false"></td></tr>
+  </table>
+  </div>
+  <div class="ft">
+  Enter a PubMed ID, an author last name, and/or part of an article title in order to find genes and gene products that cite the corresponding publication or author.
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.protFtrs)">
+Search/Filter by existence of protein features
+</div>
+<div id="protFtrModule">
+  <div class="bd">
+    <div id="ftrTree"></div>
+  </div>
+If multiple feature types are specified, return proteins that have
+    <select id="ftrConnect" name="ftrAnd">
+    <option value="false" selected>any</option>
+    <option value="true">all</option>
+    </select>
+of the specified types.<br><br>
+  <div class="ft">
+  Select one or more protein feature types to filter the result to only include gene products for which features of those types have been identified.  If no feature classes are listed, this database does not contain protein feature data.
+  </div>
+</div>
+
+<div style="text-align:center">
+<input type="submit" value="Submit Query" />
+<input type="reset" value="Clear Form" onclick="clearGeneForm()" />
+<input type="button" value="List of All Genes" onclick="popupShortWaitMsg();location.href='/'+orgID()+'/class-instances?object=Genes'">
+<input type="button" value="List of All Proteins" onclick="popupShortWaitMsg();location.href='/'+orgID()+'/class-instances?object=Proteins'">
+<input type="button" value="List of All RNAs" onclick="location.href='/'+orgID()+'/class-instances?object=RNAs'">
+</div>
+
+</form>
+<p>
+Note: Only search criteria that have been checked at the time the query is 
+submitted are included in the query.  If multiple search criteria are specified,
+then results must satisfy ALL of them.  Where applicable, a protein
+search will search all polypeptides, protein complexes, and their
+modified forms.  For more search options, see the <a href="/query.shtml">Advanced Search</a> page.  For more details on how to use this and other search facilities, see the <a href="/PToolsWebsiteHowto.shtml#SearchHelp">Search Help</a> page.
+
+<p>
+<hr>
+<!--
+<a href="javascript:void()" onclick="window.open('feedback.html?' + encodeURIComponent(location), 'bugreport', 'toolbar=no,dependent=yes,height=640,width=620,menubar=no,location=no,scrollbars=yes')">Report Errors or Provide Feedback</a>
+-->
+<div class="head_link">
+<a href="https://www.soybase.org/include/antispam.php?menu=0" id="feedback" name="feedback" title="Provide feedback and report errors" target="_blank">Report Errors or Omissions or Provide Feedback for this page</a>
+</div>
+</div>
+<div id='orgSelectorDialogCC'></div>
+</body>
+<!--#include virtual="/template-part3of3.shtml" -->
+<!-- Individual YUI JS files -->
+<script type="text/javascript" src="/yui/build/button/button-min.js"></script> 
+<script type="text/javascript" src="/yui/examples/treeview/assets/js/TaskNode-min.js"></script>
+<!-- #if expr="wu:*developer-mode*"-->
+<script type="text/javascript" src="/search.js"></script>
+<!-- #else -->
+<script type="text/javascript" src="/search-min.js"></script>
+<!-- #endif -->
+
+<link rel="stylesheet" type="text/css" href="/search.css">
+<script type="text/javascript">
+YAHOO.util.Event.addListener(window, "load", initGeneForm);
+</script>
+
+</html>

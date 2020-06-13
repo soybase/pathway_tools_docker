@@ -1,0 +1,222 @@
+<!--#include virtual="/template-before-head.shtml" -->
+<head>
+
+<title>Pathway Search Form</title>
+
+<meta name="description" content="Search the selected model organism database for pathways by a variety of criteria, including name, substrates, ontology, etc.">
+
+<!--#include virtual="/template-standard-head-content.shtml" -->
+
+
+</HEAD>
+
+<!--#include virtual="/template-beginning-body.shtml" -->
+
+<h1 class=wspecies>Pathway Search</h1>
+<form class="searchForm" id="pwySearch" action="javascript:submitPwyQuery();">
+<div style="text-align:center">
+<input type="submit" value="Submit Query" />
+<input type="reset" value="Clear Form" onclick="clearPwyForm()" />
+<input type="button" value="List of All Pathways" onclick="location.href='/'+orgID()+'/class-instances?object=Pathways'">
+</div>
+
+<div class="secbar open" onclick="toggleShow(this, YAHOO.module.nameSearch)">
+Search for pathway by name
+</div>
+<div id="nameSearchModule">
+  <div class="bd">
+    <div class= "longAC" id="pwyNameAutoComplete">
+      <input id="pwyName" type="text" spellcheck="false" />
+      <div id="pwyNameContainer"></div>
+    </div>
+    <input id="pwyID" type="hidden" />
+  </div>
+  <div class="ft">
+  Examples: "glycolysis", "arginine biosynthesis"
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.classBrowse)">
+Search/Filter by ontology
+</div>
+<div id="classBrowseModule">
+  <div class="bd">
+    <div id="classTree"></div>
+  </div>
+  <div class="ft">
+  Browse the pathway ontology to find a specific pathway, or select one or more pathway classes to filter your query to retrieve only members of those classes.  For example, retrieve only biosynthetic pathways.
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.numRxns)">
+Search/Filter by number of reactions
+</div>
+<div id="numRxnsModule">
+  <div class="bd">
+    <input id="minRxns" type="text" style="width:2em">
+    &lt;= Number of reaction steps &lt;= 
+    <input id="maxRxns" type="text" style="width:2em">
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.substrates)">
+Search/Filter by substrates present
+</div>
+<div id="substratesModule">
+  <div class="bd">
+    Enter up to four substrates:
+    <div class = "shortAC" id="substrate0AutoComplete">
+      <input id="substrate0Name" type="text" spellcheck="false" />
+      <div id="substrate0Container"></div>
+    </div>
+    <input id="substrate0ID" type="hidden" />
+    <div class = "shortAC" id="substrate1AutoComplete">
+      <input id="substrate1Name" type="text" spellcheck="false" />
+      <div id="substrate1Container"></div>
+    </div>
+    <input id="substrate1ID" type="hidden" />
+    <div class = "shortAC" id="substrate2AutoComplete">
+      <input id="substrate2Name" type="text" spellcheck="false" />
+      <div id="substrate2Container"></div>
+    </div>
+    <input id="substrate2ID" type="hidden" />
+    <div class = "shortAC" id="substrate3AutoComplete">
+      <input id="substrate3Name" type="text" spellcheck="false" />
+      <div id="substrate3Container"></div>
+    </div>
+    <input id="substrate3ID" type="hidden" />
+  </div>
+  <div class="ft">
+  Enter up to four compound names.  Use the autocomplete functionality to 
+  select a full compound name, as no substring matching is done on substrate 
+  names. <br>
+  Examples: "L-tryptophan", "pyruvate".
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.evidence)">
+Search/Filter by evidence code
+</div>
+<div id="evidenceModule">
+  <div class="bd">
+    <div id="evidenceTree"></div>
+  </div>
+  <div class="ft">
+  Select one or more evidence codes to filter the result to only include pathways that are supported only by the corresponding evidence type.  Deselecting all evidence codes has the same effect as selecting all evidence codes -- no filtering will be done based on evidence code.
+  </div>
+</div>
+
+<div class="multiorg">
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.species)">
+Search/Filter by organism
+</div>
+<div id="speciesModule">
+  <div class="bd">
+    Type in or browse for an organism
+    <div class="longAC" id="speciesAutoComplete">
+       <input id="speciesName" type="text" spellcheck="false" />
+       <div id="speciesContainer"></div>
+    </div>
+    <input id="NCBIorgID" type="hidden" />
+    <div id="speciesTree"></div>
+  </div>
+  <div class="ft">
+  Type in an organism name or NCBI Taxonomy ID, or browse the NCBI Taxonomy to select one or more organisms or organism classes.  The results will be filtered to include only pathways that are curated as occurring in those organisms (based on the experimental literature reviewed to date).  Organisms that are not present in the list have no pathways curated for them.  If a pathway has not been curated for a given organism, it may be truly absent from that organism, or our curators may not yet have reviewed the relevant literature.  Deselecting all organisms has the same effect as selecting all organisms -- no filtering will be done based on organism.  
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.tax)">
+Search/Filter by expected taxonomic range
+</div>
+<div id="taxModule">
+    Type in or browse for a taxon
+    <div class="longAC" id="taxAutoComplete">
+       <input id="taxName" type="text" spellcheck="false" />
+       <div id="taxContainer"></div>
+    </div>
+    <input id="taxID" type="hidden" />
+  <div class="bd">
+    <div id="taxTree"></div>
+  </div>
+  <div class="ft">
+  Type in a taxon name or NCBI Taxonomy ID, or browse the NCBI Taxonomy to select one or more organisms or organism classes.  The results will be filtered to include only pathways that are considered likely to occur in those organisms based
+on the estimated taxonomic range of each pathway.  Taxonomic ranges are typically
+estimated by curators based on the experimentally observed range of a pathway.  
+If an organism class cannot be further expanded, 
+it means that the set of pathways does not change as you move further down in the 
+organism taxonomy.  Deselecting all organisms has the same effect as selecting 
+all organisms -- no filtering will be done based on organism.
+  </div>
+</div>
+</div>
+
+<div class="multiorg" id="engAll">
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.eng)">
+Search/Filter by engineered or naturally occurring status
+</div>
+<div id="engModule">
+  <div class="bd">
+  <input id="engYes" type="radio" name="engType" value="y">Include only engineered pathways<br>
+  <input id="chimeric" type="radio" name="engType" value="c">Include only chimeric pathways<br>
+  <input id="engNo" type="radio" name="engType" value="n">Include only naturally occurring pathways<br>
+  <input id="engAny" type="radio" name="engType" value="a" checked>Do not filter based on engineered, chimeric or naturally occurring status<br>
+  </div>
+  <div class="ft">
+An engineered pathway is a pathway that has been constructed in a host 
+organism by genetic modification or deletion of existing genetic traits 
+and/or the introduction of genetic elements from other organisms.  A chimeric 
+pathway is a pathway comprised of reactions from multiple organisms that most 
+commonly does not occur in its entirety in a single organism (Only sections of 
+the pathway are likely to occur in their entirety in single organisms).
+  </div>
+</div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.pub)">
+Search/Filter by publication
+</div>
+<div id="pubModule">
+  <div class="bd">
+  <table>
+    <tr><td>PubMed ID:</td><td><input id="pmid" type="text" spellcheck="false" style="width:9em"></td></tr>
+    <tr><td>Author:</td><td><input id="auth" type="text" spellcheck="false" style="width:9em"></td></tr>
+    <tr><td>Title:</td><td><input id="title" type="text" spellcheck="false" style="width:30em"></td></tr>
+  </table>
+  </div>
+  <div class="ft">
+  Enter a PubMed ID, an author last name, and/or part of an article title in order to find pathways that cite the corresponding publication or author.
+  </div>
+</div>
+
+<div style="text-align:center">
+<input type="submit" value="Submit Query" />
+<input type="reset" value="Clear Form" onclick="clearPwyForm()" />
+<input type="button" value="List of All Pathways" onclick="location.href='/'+orgID()+'/class-instances?object=Pathways'">
+</div>
+
+</form>
+<p>
+Note: Only search criteria that have been checked at the time the query is 
+submitted are included in the query.  If multiple search criteria are specified, then results must satisfy ALL of them.  For more search options, see the <a href="/query.shtml">Advanced Search</a> page.  For more details on how to use this and other search facilities, see the <a href="/PToolsWebsiteHowto.shtml#SearchHelp">Search Help</a> page.
+
+<p>
+<hr>
+<!-- <a href="javascript:void()" onclick="window.open('feedback.html?' + encodeURIComponent(location), 'bugreport', 'toolbar=no,dependent=yes,height=640,width=620,menubar=no,location=no,scrollbars=yes')">Report Errors or Provide Feedback</a> -->
+<div class="head_link">
+<a href="https://www.soybase.org/include/antispam.php?menu=0" id="feedback" name="feedback" title="Provide feedback and report errors" target="_blank">Report Errors or Omissions or Provide Feedback for this page</a>
+</div>
+</div>
+<div id='orgSelectorDialogCC'></div>
+</body>
+<!--#include virtual="/template-part3of3.shtml" -->
+<!-- Individual YUI JS files -->
+<script type="text/javascript" src="/yui/build/button/button-min.js"></script> 
+<script type="text/javascript" src="/yui/examples/treeview/assets/js/TaskNode-min.js"></script>
+<script type="text/javascript" src="/search-min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/search.css">
+<script type="text/javascript">
+YAHOO.util.Event.addListener(window, "load", initPwyForm);
+</script>
+
+</html>

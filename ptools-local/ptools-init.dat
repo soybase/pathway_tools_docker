@@ -45,7 +45,8 @@ WWW-Server-Port 1555
 # be searched in the order given when serving static files. Do not
 # include a trailing slash or backslash at the end of the directories.
 #
-###WWW-Html-Root-Dir /opt/pathway-tools/aic-export/htdocs
+###WWW-Html-Root-Dir /pathway-tools/aic-export/htdocs
+WWW-Html-Root-Dir /ptools-local/html+/pathway-tools/aic-export/htdocs
 
 # Set this to "Y" (no quotes) if you would like gzip to apply compression on 
 # CSS, HTML and JavaScript files served by the web server.
@@ -84,7 +85,7 @@ WWW-Server-Port 1555
 # organism IDs is given, it will only apply to these organisms.
 # The default value is "none".
 #
-###Use-Cyc-Name none
+Use-Cyc-Name SOY
 
 ################################################################################
 #
@@ -104,7 +105,7 @@ WWW-Server-Port 1555
 # This name will be inserted by Pathway Tools into pages that it generates
 # on your Web site.
 #
-###WWW-Site-Name BioCyc
+WWW-Site-Name SoyCyc
 
 # Specify which organisms should be published by the WWW server.
 # Users may publish all PGDBs on a site by using "all",
@@ -149,7 +150,7 @@ WWW-Server-Port 1555
 # Set to "Y" to have the Query Page display the "History of updates for this 
 # dataset" link. A value of "N" suppresses it.
 #
-###WWW-Show-Update-History-Link Y
+#WWW-Show-Update-History-Link Y
 
 # Set to "Y" to have the Query Page display the "Cellular Overview Diagram / 
 # Omics Viewer" link. A value of "N" suppresses it.
@@ -181,7 +182,7 @@ WWW-Server-Port 1555
 # Set to "Y" to have the IP addresses translated to DNS names for web 
 # requests. A value of "N" disables it.
 #
-###WWW-Enable-DNS-Lookups Y
+WWW-Enable-DNS-Lookups N
 
 # Set to "Y" to enable use of domain cookies for session cookies. 
 # A value of "N" disables it.
@@ -401,7 +402,7 @@ WWW-Server-Port 1555
 
 # Set to "Y" to not show the link in page footers, which would invoke an error report and feedback form.
 #
-###Disable-Feedback-Link N
+Disable-Feedback-Link Y
 
 # Send email either through this machine's sendmail installation
 # or via an SMTP client that logs in to your site's SMTP server.

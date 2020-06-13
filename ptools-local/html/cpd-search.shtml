@@ -1,0 +1,191 @@
+<!--#include virtual="/template-before-head.shtml" -->
+<head>
+
+<title>Compound Search Form</title>
+
+<meta name="description" content="Search the selected model organism database for small molecule metabolites by a variety of criteria, including name, molecular weight, formula, etc.">
+
+<!--#include virtual="/template-standard-head-content.shtml" -->
+
+</head>
+
+<!--#include virtual="/template-beginning-body.shtml" -->
+
+<h1 class=wspecies>Compound Search</h1>
+<form class="searchForm" id="cpdSearch" action="javascript:submitCpdQuery();">
+<div style="text-align:center">
+<input type="submit" value="Submit Query" />
+<input type="reset" value="Clear Form" onclick="clearCpdForm()" />
+<input type="button" value="List of All Compounds" onclick="popupShortWaitMsg();location.href='/'+orgID()+'/class-instances?object=Compounds'">
+</div>
+
+<div class="secbar open" onclick="toggleShow(this, YAHOO.module.nameSearch)">
+Search for compound by name or ID
+</div>
+<div id="nameSearchModule">
+  <div class="bd">
+    <div class= "shortAC" id="nameAutoComplete">
+      <input id="cpdName" type="text" spellcheck="false" />
+      <div id="nameContainer"></div>
+    </div>
+    <input id="frameID" type="hidden" />
+  </div>
+  <div class="ft">
+    Enter a compound name, or a database identifier from this database or from an external database such as ChEBI, LIGAND, PubChem or CAS.  This database may not contain mappings to all of these other databases.  Partial names will generate a substring search on compound names only (not on database identifiers).<br>
+Examples: "tryptophan", "C00036"
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.classBrowse)">
+Search/Filter by ontology
+</div>
+<div id="classBrowseModule">
+  <div class="bd">
+    <div id="classTree"></div>
+    <input id="selectedClass" type="hidden" value="Compounds" />
+  </div>
+  <div class="ft">
+  Browse the compound ontology to a specific compound, or select one or more compound classes to filter your query to only retrieve members of those classes.  Note that a large number of compounds have not yet been classified, so are found under the class "an unclassified compound".
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.monoisomw)">
+Search/Filter by monoisotopic mass (for mass spectroscopy)
+</div>
+<div id="monoisomwModule">
+  <div class="bd">
+    <table><tr>
+    <td>
+    Molecular weight (Daltons), one per line:<BR>
+    <textarea id="monoisoMW" rows="12" cols="20" align="top" wrap="off"></textarea>
+    </td>
+    <td>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    </td>
+    <td>
+    Tolerance (+- ppm)
+    <input id="monoisoTol" type="text" value="5" style="width:4em"><BR>
+		<BR><BR><BR>
+    The search assumes that compounds are treated as neutral<BR>
+    regarding protonation state, i.e. not having charged functional groups.
+    </td>
+    </tr></table>
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.mw)">
+Search/Filter by molecular weight
+</div>
+<div id="mwModule">
+  <div class="bd">
+    <input id="minMW" type="text" style="width:4em">
+    &lt;= Molecular weight (Daltons) &lt;= 
+    <input id="maxMW" type="text" style="width:4em">
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.formula)">
+Search/Filter by chemical formula (partial or full)
+</div>
+<div id="formulaModule">
+  <div class="bd">
+    <input id="formula" type="text" style="width:15em" spellcheck="false">
+    <input id="cfPartial" type="radio" name="cfMatchType" value="partial" checked>Partial Match
+    <input id="cfExact" type="radio" name="cfMatchType" value="exact">Exact Match
+  </div>
+  <div class="ft">
+    Examples: 
+    <ul>
+    <li> Partial match
+    <ul>
+    <li>"C12" will retrieve all compounds with exactly 12 carbon atoms and possibly other elements
+    <li> "C12N" will retrieve all compounds with exactly 12 carbons, and one or more nitrogens, and possibly other elements
+    <li>"C6H12O6" will retrieve all compounds with exactly 6 carbons, 12 hydrogens, 6 oxygens, and possibly some other elements
+    <li>"CH4O" will retrieve all compounds with one or more carbon, exactly 4 hydrogens, one or more oxygen, and possibly some other elements
+    <li>"Zn" will retrieve all compounds containing zinc
+    </ul>
+    <li> Exact match
+    <ul>
+    <li>"C6H12O6" will retrieve all compounds with exactly 6 carbons, 12 hydrogens, 6 oxygens, and no other elements
+    <li>"CH4O" will retrieve all compounds with exactly 1 carbon, 4 hydrogens, 1 oxygen, and no other elements
+    </ul>
+  </ul>
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.smiles)">
+Search/Filter by SMILES (substructure or full)
+</div>
+<div id="smilesModule">
+  <div class="bd">
+    <input id="smiles" type="text" style="width:25em" spellcheck="false">
+    <input id="smPartial" type="radio" name="smMatchType" value="partial" checked>Substructure Match
+    <input id="smExact" type="radio" name="smMatchType" value="exact">Exact Match
+  </div>
+  <div class="ft">
+    Please see the <A HREF="/help.html?object=smiles">introduction to SMILES</A>.
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.inchi)">
+Search by InChI string
+</div>
+<div id="inchiModule">
+  <div class="bd">
+    <textarea rows=4 id="inchi" style="width:40em">
+    </textarea>
+  </div>
+  <div class="ft">
+    Paste in the full <a href="http://www.iupac.org/inchi/">InChI</a> string, starting with "InChI=".
+  </div>
+</div>
+
+<div class="secbar closed" onclick="toggleShow(this, YAHOO.module.inchiKey)">
+Search by InChI key
+</div>
+<div id="inchiKeyModule">
+  <div class="bd">
+    <input id="inchikey" type="text" style="width:40em" spellcheck="false">	
+  </div>
+  <div class="ft">
+    Paste in the <a href="https://www.inchi-trust.org/technical-faq-2/#2.7">InChI Key</a> string.  You may supply either the full key or a prefix string containing either the first character grouping or the first and second character groupings.  <br>Examples: "CKLJMWTZIZZHCS-REOHCLBHSA-M", "CKLJMWTZIZZHCS-REOHCLBHSA", "CKLJMWTZIZZHCS".
+  </div>
+</div>
+
+<div style="text-align:center">
+<input type="submit" value="Submit Query" />
+<input type="reset" value="Clear Form" onclick="clearCpdForm()" />
+<input type="button" value="List of All Compounds" onclick="popupShortWaitMsg();location.href='/'+orgID()+'/class-instances?object=Compounds'">
+</div>
+</form>
+<p>
+Note: Only search criteria that have been checked at the time the query is 
+submitted are included in the query.  If multiple search criteria are specified, then results must satisfy ALL of them.  For more search options, see the <a href="/query.shtml">Advanced Search</a> page.  For more details on how to use this and other search facilities, see the <a href="/PToolsWebsiteHowto.shtml#SearchHelp">Search Help</a> page.
+
+<p>
+<hr>
+<!--
+<a href="javascript:void()" onclick="window.open('feedback.html?' + encodeURIComponent(location), 'bugreport', 'toolbar=no,dependent=yes,height=640,width=620,menubar=no,location=no,scrollbars=yes')">Report Errors or Provide Feedback</a>
+-->
+<div class="head_link">
+<a href="https://www.soybase.org/include/antispam.php?menu=0" id="feedback" name="feedback" title="Provide feedback and report errors" target="_blank">Report Errors or Omissions or Provide Feedback for this page</a>
+</div>
+</div>
+<div id='orgSelectorDialogCC'></div>
+</body>
+<!--#include virtual="/template-part3of3.shtml" -->
+<!-- Individual YUI JS files -->
+<script type="text/javascript" src="/yui/build/button/button-min.js"></script> 
+<script type="text/javascript" src="/yui/examples/treeview/assets/js/TaskNode-min.js"></script>
+<!-- #if expr="wu:*developer-mode*"-->
+<script type="text/javascript" src="/search.js"></script>
+<!-- #else -->
+<script type="text/javascript" src="/search-min.js"></script>
+<!-- #endif -->
+
+<link rel="stylesheet" type="text/css" href="/search.css">
+<script type="text/javascript">
+YAHOO.util.Event.addListener(window, "load", initCpdForm);
+</script>
+
+</html>

@@ -1,0 +1,78 @@
+<!--#include virtual="/template-part1of3.shtml" -->
+<title>SoyCyc Database</title>
+
+<!--#include virtual="/template-part2of3.shtml" -->
+
+<h3 style="text-align:center">SoyCyc Soybean Metabolic Pathway Database</h3>
+
+<font size=+1>
+<p>This the SoyCyc 10.0 Soybean Metabolic Pathway Database. 
+The data in this database were inferred by <tt>ab-initio</tt> methods from the 
+Glycine max Williams82 genome sequence gene calls (Wm82.a4.v1) from the Joint Genome Institute (JGI, <a href="https://phytozome.jgi.doe.gov/pz/portal.html#!info?alias=Org_Gmax" target="_blank">Phytozome</a>).
+</p>
+<P>The "<B>Search</B>" button allows you to search for information in a number of ways.</P>
+<table cellpadding="6" cellspacing="10">
+	<tr>
+		<th width="200px" align="right">Search By</th><th width="600px" align="left">Description</th>
+	</tr>
+	<tr>
+		<td align="right">Compounds</td><td>Searches using compound names.</td>
+	</tr>
+	<tr>
+		<td align="right">Genes/Proteins/RNAs</td><td>Searches using gene, protein or structural RNA names.</td>
+	</tr>
+	<tr>
+		<td align="right">Reactions</td><td>Searches using biochemical reaction names.</td>
+	</tr>
+	<tr>
+		<td align="right">Pathways</td><td>Searches using proper pathway names.</td>
+	</tr>
+	<tr>
+		<td align="right">Advanced</td><td>Perform direct database queries.</td>
+	</tr>
+	<tr>
+		<td align="right">Ontologies</td><td>Search for genes and pathway information using ontological terms from GO, EC, etc.</td>
+	</tr>
+<!--	<tr>
+		<td align="right">Google this Site</td><td>Not currently implemented.</td>
+	</tr> -->
+<!--	<tr>
+		<td align="right">BLAST</td><td>Not currently implemented.</td>
+	</tr> -->
+
+</table><br>
+<P>The "<B>Tools</B>" button allows you access to a number of computational tools to examine the database.</p><BR>
+<table cellpadding="6" cellspacing="10">
+	<tr>
+		<th width="200px" align="right">Tool</th><th width="600px" align="left">Description</th>
+	</tr>
+<!--	<tr>
+		<td align="right">Genome Browser</td><td>Browse the sequence map of the organism (not available for plant databases).</td>
+	</tr> -->
+	<tr>
+		<td align="right">Cellular Overview</td><td>Presents a schematic of known pathways and annotation data.</td>
+	</tr>
+<!--	<tr>
+		<td align="right">Genome Overview</td><td>Not available for Eukaryotes.</td>
+	</tr> -->
+<!--	<tr>
+		<td align="right">Regulatory Overview</td><td>View regulatory protein information (not currently available).</td>
+	</tr> -->
+	<tr>
+		<td align="right">Omics Viewer</B><td>Annotate pathway information with data from transcriptomic experiments.</td>
+	</tr>
+	<tr>
+		<td align="right">Comparative Analysis</td><td>Identify pathways in common between the available databases.</td>
+	</tr>
+	<tr>
+		<td align="right">Reports</td><td>Generate descriptive reports for the database.</td>
+	</tr>
+
+</table><br>
+
+
+</font>
+
+<!--#include virtual="/template-part3of3.shtml" -->
+
+
