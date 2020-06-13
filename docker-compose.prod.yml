@@ -13,7 +13,7 @@ services:
     - "1555:1555"
     restart: always
     volumes_from:
-      - ptools-local:ro
+      - ptools-local
 
   ptools-local:
     build: 
