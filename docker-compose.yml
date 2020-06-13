@@ -13,4 +13,4 @@ services:
     ports:
     - "1555:1555"
     volumes:
-      - "./ptools-local:/ptools-local"
+      - "./ptools-local:/ptools-local:ro"
